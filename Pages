@@ -1,0 +1,66 @@
+package pages;
+
+import com.relevantcodes.extentreports.ExtentTest;
+
+import io.appium.java_client.android.AndroidDriver;
+import wrappers.SaudiaWrappers;
+
+public class TripSummary extends SaudiaWrappers {
+
+	public TripSummary(AndroidDriver<?> driver, ExtentTest test) {
+
+		this.driver = driver;
+		this.test = test;
+
+	}
+
+	public FlightList appBack(){
+		
+		clickByXpath(prop.getProperty("TripSummary.AppBack"));
+		
+		return new FlightList(driver, test);
+	}
+	
+	public BookMyTrip cancelBookings(){
+		
+		clickByXpath(prop.getProperty("TripSummary.Cancel"));
+		return new BookMyTrip(driver, test);
+	}
+	
+	public TripSummary getTripDetails(){
+		
+		String departureDate =getTextByXpath(prop.getProperty("TripSummary.DepartureDate"));
+		String departStart = getTextByXpath(prop.getProperty("TripSummary.DepartureStart"));
+		String departArrival = getTextByXpath(prop.getProperty("TripSummary.DepartureArival"));
+		
+		clickByXpath(prop.getProperty("TripSummary.DepartureStartTime"));
+		
+		String departFlightNo =getTextByXpath(prop.getProperty("TripSummary.DepartureFlight"));
+		
+		System.out.println("You're Departing From '"+ departStart + " To '"+departArrival + "' On '" +departureDate +"' in Flight No: '"+departFlightNo +"' !");
+		
+		String returnDate =getTextByXpath(prop.getProperty("TripSummary.ReturnDate"));
+		String returnStart = getTextByXpath(prop.getProperty("TripSummary.ReturnStart"));
+		String returnArrival = getTextByXpath(prop.getProperty("TripSummary.ReturnArival"));
+		
+		clickByXpath(prop.getProperty("TripSummary.ReturnStartTime"));
+		
+		String returnFlightNo =getTextByXpath(prop.getProperty("TripSummary.ReturnFlight"));
+		
+		System.out.println("You're Returning From '"+ returnStart + " To '"+returnArrival + "' On '" +returnDate +"' in Flight No: '"+returnFlightNo +"' !");
+		
+		String totalPrice = getTextByXpath(prop.getProperty("TripSummary.GetPrice"));
+		
+		System.out.println("Your Total Trip Price is : " +totalPrice);
+		
+		return this;
+	}
+	
+	public GuestPage tripContinue(){
+		
+		clickByXpath(prop.getProperty("TripSummary.Continue"));
+		
+		return new GuestPage(driver, test);
+	}
+	
+}
