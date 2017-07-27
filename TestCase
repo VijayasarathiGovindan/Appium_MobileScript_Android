@@ -1,0 +1,39 @@
+package testcases;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import pages.BookMyTrip;
+
+import wrappers.SaudiaWrappers;
+
+public class VerifyAppCases extends SaudiaWrappers {
+
+	@BeforeClass
+	public void setValues() {
+		dataSheetName = "TC001";
+		testCaseName = "Launch Saudia App";
+		testDescription = "Launch to Saudia app using Appium";
+		categories = "Smoke Testing";
+		authors = "Sarathi";
+
+	}
+
+	@Test(dataProvider = "fetchData")
+	public void oneWayJourney(String deviceName, String version, String fromAirport, String toAirport, int travelDate,
+			String travelMonth,String travelYear, String adultCount, String childCount, String infantCount) throws InterruptedException {
+
+		new BookMyTrip(driver, test).appLaunch(deviceName, version).oneWayJourney(fromAirport, toAirport, travelDate,
+				travelMonth, travelYear, adultCount, childCount, infantCount);
+	}
+
+	@Test(dataProvider = "fetchData")
+	public void roundJourney(String deviceName, String version, String fromAirport, String toAirport, int travelDate,
+			String travelMonth, String travelYear, int returnTravelDate, String returnTravelMonth,String returnTravelYear, String adultCount, String childCount,
+			String infantCount) throws InterruptedException {
+
+		new BookMyTrip(driver, test).appLaunch(deviceName, version).roundJourney(fromAirport, toAirport, travelDate,
+				travelMonth,travelYear, returnTravelDate, returnTravelMonth,returnTravelYear, adultCount, childCount, infantCount);
+	}
+
+}
